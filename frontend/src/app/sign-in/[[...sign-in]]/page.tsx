@@ -1,0 +1,15 @@
+import { Suspense } from "react";
+import { SignIn } from "@clerk/nextjs";
+
+import { Skeleton } from "@/components/ui/skeleton";
+
+export default function SignInPage() {
+  return (
+    <main className="flex flex-1 items-center justify-center p-4">
+      {/* Clerk's form reads the URL on the client, so it can't be part of the static shell. */}
+      <Suspense fallback={<Skeleton className="h-96 w-full max-w-sm" />}>
+        <SignIn />
+      </Suspense>
+    </main>
+  );
+}
