@@ -9,7 +9,7 @@ from app.core.errors import register_error_handlers
 def create_app() -> FastAPI:
     settings = get_settings()
     app = FastAPI(
-        title="AI Expense Tracker API",
+        title="Penny API",
         version="0.1.0",
         docs_url="/docs",
         openapi_url="/api/v1/openapi.json",

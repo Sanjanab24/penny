@@ -6,7 +6,7 @@ from app.models.mixins import CreatedAtMixin
 
 
 class Category(CreatedAtMixin, Base):
-    """Default categories are global (user_id NULL, is_default true); custom ones belong to a user."""
+    """Defaults are global (user_id NULL, is_default true); custom ones belong to one user."""
 
     __tablename__ = "categories"
 

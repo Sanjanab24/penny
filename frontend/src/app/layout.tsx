@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Expense Tracker",
+  title: "Penny: your AI money buddy",
   description: "Track spending, plan monthly budgets, and get AI budget suggestions.",
 };
 
@@ -29,7 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         suppressHydrationWarning
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       >
-        <body className="flex min-h-full flex-col bg-background text-foreground">
+        <body className="flex min-h-full flex-col bg-app text-foreground">
           <Providers>{children}</Providers>
         </body>
       </html>

@@ -1,6 +1,7 @@
+import datetime as dt
 from decimal import Decimal
 
-from sqlalchemy import Boolean, CheckConstraint, ForeignKey, Numeric, SmallInteger, String
+from sqlalchemy import Boolean, CheckConstraint, Date, ForeignKey, Numeric, SmallInteger, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
@@ -20,6 +21,9 @@ class RecurringExpense(CreatedAtMixin, Base):
     # 1-31; the generator clamps to the month's last day (31 -> Feb 28/29).
     day_of_month: Mapped[int] = mapped_column(SmallInteger, nullable=False)
     active: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    # Last day the generator has covered. Charges dated after it and up to today get created;
+    # pausing and resuming moves it forward so paused months are never backfilled.
+    generated_through: Mapped[dt.date | None] = mapped_column(Date)
 
     __table_args__ = (
         CheckConstraint("amount > 0", name="amount_positive"),

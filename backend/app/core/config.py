@@ -1,7 +1,7 @@
 """Application settings loaded from environment variables / .env."""
 
 from functools import lru_cache
-from typing import Annotated
+from typing import Annotated, Literal
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, NoDecode, SettingsConfigDict
@@ -12,14 +12,20 @@ class Settings(BaseSettings):
 
     environment: str = "development"
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/expense_tracker"
+    # Disposable database for pytest (its tables are dropped). Empty: tests use SQLite.
+    test_database_url: str = ""
 
     clerk_issuer: str = ""
     clerk_jwks_url: str = ""
     # NoDecode: accept a plain comma-separated string instead of JSON.
     clerk_authorized_parties: Annotated[list[str], NoDecode] = []
 
-    anthropic_api_key: str = ""
-    anthropic_model: str = "claude-sonnet-5-5"
+    # AI budget suggestions. "none" always uses the rule-based suggestion.
+    ai_provider: Literal["none", "gemini"] = "gemini"
+    gemini_api_key: str = ""
+    gemini_model: str = "gemini-3.5-flash-lite"
+    # Free-tier Gemini can take 20s+ when busy; past this the rule-based suggestion is used.
+    ai_timeout_seconds: float = 45.0
 
     cors_origins: Annotated[list[str], NoDecode] = ["http://localhost:3000"]
 

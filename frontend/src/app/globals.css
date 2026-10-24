@@ -49,30 +49,34 @@
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: oklch(0.982 0.006 286);
+  --foreground: oklch(0.2 0.03 280);
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
+  --card-foreground: oklch(0.2 0.03 280);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.2 0.03 280);
+  --primary: oklch(0.511 0.23 277);
+  --primary-foreground: oklch(0.985 0.005 286);
+  --secondary: oklch(0.958 0.016 286);
+  --secondary-foreground: oklch(0.32 0.1 278);
+  --muted: oklch(0.962 0.01 286);
+  --muted-foreground: oklch(0.52 0.03 280);
+  --accent: oklch(0.947 0.03 281);
+  --accent-foreground: oklch(0.4 0.18 277);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
+  --border: oklch(0.915 0.014 286);
+  --input: oklch(0.9 0.016 286);
+  --ring: oklch(0.6 0.2 277);
+  /* Series colors validated for color-blind separation and 3:1 contrast on this surface. */
+  --chart-1: #2a78d6;
+  --chart-2: #eb6834;
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
-  --radius: 0.625rem;
+  --radius: 0.75rem;
+  /* Brand gradient (indigo -> violet). White text on it stays above 4.5:1. */
+  --hero-from: oklch(0.511 0.23 277);
+  --hero-to: oklch(0.541 0.247 293);
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.205 0 0);
@@ -84,26 +88,29 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: oklch(0.165 0.022 280);
+  --hero-from: oklch(0.45 0.2 277);
+  --hero-to: oklch(0.47 0.22 295);
+  --foreground: oklch(0.965 0.008 286);
+  --card: oklch(0.215 0.028 280);
+  --card-foreground: oklch(0.965 0.008 286);
+  --popover: oklch(0.235 0.03 280);
+  --popover-foreground: oklch(0.965 0.008 286);
+  --primary: oklch(0.68 0.165 277);
+  --primary-foreground: oklch(0.18 0.03 280);
+  --secondary: oklch(0.275 0.035 280);
+  --secondary-foreground: oklch(0.93 0.02 286);
+  --muted: oklch(0.265 0.03 280);
+  --muted-foreground: oklch(0.72 0.025 282);
+  --accent: oklch(0.3 0.07 278);
+  --accent-foreground: oklch(0.92 0.04 282);
   --destructive: oklch(0.704 0.191 22.216);
   --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(0.62 0.16 277);
+  /* Dark steps of the same two hues, validated against the dark surface. */
+  --chart-1: #3987e5;
+  --chart-2: #d95926;
   --chart-3: oklch(0.439 0 0);
   --chart-4: oklch(0.371 0 0);
   --chart-5: oklch(0.269 0 0);
@@ -127,4 +134,18 @@
   html {
     @apply font-sans;
   }
+}
+
+/* Indigo -> violet brand gradient for the hero card and logo. */
+@utility bg-hero {
+  background-image: linear-gradient(135deg, var(--hero-from), var(--hero-to));
+}
+
+/* A faint brand glow behind the page, so it isn't a flat sheet of gray. */
+@utility bg-app {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(60rem 30rem at 100% -10%, color-mix(in oklch, var(--hero-to) 9%, transparent), transparent),
+    radial-gradient(50rem 25rem at -10% 0%, color-mix(in oklch, var(--hero-from) 7%, transparent), transparent);
+  background-attachment: fixed;
 }

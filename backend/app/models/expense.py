@@ -26,6 +26,8 @@ class Expense(CreatedAtMixin, Base):
 
     __table_args__ = (
         Index("ix_expenses_user_id_date", "user_id", "date"),
+        # Category filters and the RESTRICT check when a category is deleted.
+        Index("ix_expenses_category_id", "category_id"),
         CheckConstraint("amount > 0", name="amount_positive"),
         # Backstop for recurring-generation idempotency: one generated row per item per date.
         # NULL recurring_id (manual expenses) never conflicts.
